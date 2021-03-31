@@ -1,0 +1,102 @@
+
+using System;
+using System.Collections;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace P
+{
+    class Student
+    {
+        string First;
+        string Last;
+        int ID;
+        int[] scores;
+        public Student(string First, string Last, int ID, int[] scores)
+        {
+            this.First = First;
+            this.Last = Last;
+            this.ID = ID;
+            this.scores = scores;
+        }
+        public override string ToString()
+        {
+            return First + " " + Last + " " + ID + " " + scores[0] + " " + scores[1] + " " + scores[2];
+        }
+        
+
+    }
+   class Students
+   {
+            private Student[] M;
+            int count;
+            public Students(int capacity)
+            {
+                count = 0;
+                M = new Student[capacity];
+
+            }
+            public int Count
+            {
+                get { return count; }
+            }
+            public void Add(Student student)
+            {
+                if (count == M.Length)
+                {
+                    Student[] Mn = new Student[M.Length + 1];
+                    M.CopyTo(Mn, 0);
+                    M = Mn;
+                
+                }
+                M[count++] = student;
+                
+
+
+            }
+            public IEnumerator GetEnumerator()
+            {
+                for (int i = 0; i < M.Length; i++)
+                {
+                    yield return M[i];
+
+                }
+
+            }
+            public Student this [int i]
+            {
+                get { return M[i]; }
+                set { M[i] = value; }
+            }
+   } 
+    
+    class Program
+    {
+        static void Main()
+        {
+            Student a = new Student("Ivan", "Ivanov", 1, new int [] { 1, 2, 3 });
+            Student b = new Student("Artem", "Artemovich", 2, new int[] { 4, 5, 6 });
+            Student c = new Student("Nikolai", "Nikolaevich", 3, new int[] { 7, 8, 9 });
+            Student d = new Student("Ivan", "Ivanov", 1, new int[] { 1, 2, 3 });
+            Student e = new Student("Artem", "Artemovich", 2, new int[] { 4, 5, 6 });
+            Student f = new Student("Nikol000ai", "Nikolaevich", 3, new int[] { 7, 8, 9 });
+            Students M = new Students(3);
+            M.Add(a);
+            M.Add(b);
+            M.Add(b);
+            M.Add(d);
+            M.Add(e);
+            M.Add(f);
+            Console.WriteLine(a);
+            foreach (Student item in M)
+            {
+                Console.WriteLine(item);
+
+            }
+            
+
+
+        }
+    }
+}
